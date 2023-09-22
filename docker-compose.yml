@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  php:
+    container_name: ivyshop.api
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app:delegated
+    command: symfony serve --port=8040
+    networks:
+      - ivyshop
+
+  db:
+    container_name: ivyshop.db
+    image: postgres:16.0
+    environment:
+      POSTGRES_ROOT_PASSWORD: root
+      POSTGRES_DB: ivyshop
+      POSTGRES_USER: roger.dev
+      POSTGRES_PASSWORD: psw1234
+    networks:
+      - ivyshop
+
+networks:
+  ivyshop:
