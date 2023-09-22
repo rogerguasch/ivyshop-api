@@ -8,6 +8,9 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/app:delegated
+    ports:
+      - "8040:8040"
+      - "9040:9001"
     command: symfony serve --port=8040
     networks:
       - ivyshop
@@ -20,6 +23,8 @@ services:
       POSTGRES_DB: ivyshop
       POSTGRES_USER: roger.dev
       POSTGRES_PASSWORD: psw1234
+    ports:
+      - "54320:5432"
     networks:
       - ivyshop
 
