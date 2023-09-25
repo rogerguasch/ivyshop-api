@@ -6,6 +6,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
     gnupg \
+    sudo \
     g++ \
     procps \
     openssl \
@@ -20,7 +21,8 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxslt1-dev \
     acl \
-    && echo 'alias sf="php bin/console"' >> ~/.bashrc
+    && echo 'alias sf="php bin/console"' >> ~/.bashrc \
+    && usermod -u 1000 www-data
 
 RUN docker-php-ext-configure gd --with-jpeg --with-freetype
 
@@ -32,8 +34,14 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN echo "Europe/Berlin" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 COPY conf/php.ini /usr/local/etc/php/
 
+## Allow non-root users have home
+RUN mkdir -p /opt/home
+RUN chmod 777 /opt/home
+ENV HOME /opt/home
+
 ### Symfony installer
 RUN curl -sS https://get.symfony.com/cli/installer | bash -s - --install-dir /usr/local/bin
+RUN #sudo chmod -R 777 /app/.symfony5
 
 ## Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
