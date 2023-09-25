@@ -6,7 +6,6 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
     gnupg \
-    sudo \
     g++ \
     procps \
     openssl \
@@ -41,7 +40,6 @@ ENV HOME /opt/home
 
 ### Symfony installer
 RUN curl -sS https://get.symfony.com/cli/installer | bash -s - --install-dir /usr/local/bin
-RUN #sudo chmod -R 777 /app/.symfony5
 
 ## Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
