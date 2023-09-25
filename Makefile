@@ -19,4 +19,4 @@ execute-lint:
 
 .PHONY: githubaction-lint
 githubaction-lint:
-	./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --allow-risky=yes --dry-run
+	./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --allow-risky=yes
