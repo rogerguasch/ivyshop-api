@@ -25,4 +25,4 @@ jobs:
         run: composer install
 
       - name: Php CS Fixer
-        run: make lint
+        run: make githubaction-lint
