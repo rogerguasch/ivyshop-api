@@ -24,5 +24,8 @@ jobs:
       - name: Composer install
         run: composer install
 
+      - name: Composer normalize
+        run: composer normalize
+
       - name: Php CS Fixer
         run: make githubaction-lint
